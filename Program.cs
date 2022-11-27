@@ -50,3 +50,51 @@ string[] SplitTextToArray(string text,char sign) // Делим текст на �
 
     return strArray;
 }
+//---------------------------------------------------------------------GetLenthBySign------------------------------------------------------------------------------+
+int GetLenthBySign(string[] array, int length) // Посчитаем количество элементов в массиве с длиной по условию
+{
+    int counter = 0;
+
+    foreach (var item in array)
+        if(item.Length <= length) counter++;
+
+    return counter;
+}
+//---------------------------------------------------------------------GetSortedArray------------------------------------------------------------------------------+
+string[] GetSortedArray(string[] inputArray, int digits) // Получим по условию заполненный массив 
+{
+    string[] outputArray = new string[GetLenthBySign(inputArray,digits)];
+    int      outputArrayCounter = 0;
+
+    foreach (var item in inputArray)
+        if(item.Length <=3) {outputArray[outputArrayCounter] = item; outputArrayCounter++;}
+    
+    return outputArray;
+}
+//---------------------------------------------------------------------PrintStringArray----------------------------------------------------------------------------+
+void PrintStringArray(string[] array) // Вывод на экран строкового масиива
+{
+    foreach (var item in array)
+        Console.WriteLine(item);
+    
+    Console.WriteLine("//---------------------------------------------------------------------------------------------------------------------------------+");
+}
+//---------------------------------------------------------------------Main----------------------------------------------------------------------------------------+
+Console.Clear();
+string   text        = GetText();
+string[] inputArray  = SplitTextToArray(text,' ');
+string[] outputArray = GetSortedArray(inputArray,3);
+string   letter      = string.Empty;
+
+Console.WriteLine();
+Console.Write("Если хотите вывести исходный текст и массивы до и после сортировки на экран нажмите 'y' и Enter. Если нет, то нажмите любую клавишу и Enter.");
+Console.WriteLine();
+letter = Console.ReadLine()?? "0";
+
+if(letter.Equals("y"))
+{
+    Console.WriteLine(text);
+    Console.WriteLine();
+    PrintStringArray(inputArray);
+    PrintStringArray(outputArray);
+}
